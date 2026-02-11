@@ -1,0 +1,3 @@
+assets/teachers/default-avatar.svg
+styles.css
+teachers.html

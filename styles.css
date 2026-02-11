@@ -1,0 +1,191 @@
+:root{
+  --color-bg:#ffffff;
+  --color-text:#1a1a1a;
+  --color-primary:#0057B8; /* Blue */
+  --color-accent:#FFCC00;  /* Yellow */
+  --color-muted:#eef2f7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;color:var(--color-text);background:var(--color-bg)}
+img{max-width:100%;height:auto}
+a{color:var(--color-primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{width:min(1100px,92%);margin-inline:auto}
+header{position:sticky;top:0;background:#0a3e85;border-bottom:1px solid #0a3e85;color:#fff;z-index:10}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:.4rem;padding:.5rem 0}
+.brand{display:flex;align-items:center;gap:.75rem;font-weight:700;color:#fff}
+.brand img{width:34px;height:34px;object-fit:contain;border-radius:6px;background:#fff;padding:2px}
+nav ul{list-style:none;display:flex;gap:.25rem;padding:0;margin:0}
+nav a{display:block;color:#fff;padding:.45rem .65rem;border-radius:.5rem}
+nav a:focus,nav a:hover{background:rgba(255,255,255,.12)}
+.mobile-toggle{display:none}
+@media (max-width: 760px){nav{display:none}nav.open{display:block}nav ul{flex-direction:column;padding:.5rem 0}.mobile-toggle{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3);padding:.25rem .5rem;border-radius:.4rem}}
+.skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:var(--color-accent);color:#000}
+
+
+
+/* Center and strengthen hero visibility */
+
+
+
+.hero h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 .5rem;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+.hero p{color:#f7f7f7}
+
+.cta{display:inline-block;background:var(--color-primary);color:#fff;padding:.6rem .9rem;border-radius:.5rem;border:2px solid var(--color-primary)}
+.cta.secondary{background:#fff;color:#003a73;border-color:#0057B8}
+.grid{display:grid;gap:1rem}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.grid.cols-3{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;padding:1rem}
+.section{padding:2rem 0}
+.section h2{font-size:1.5rem;margin:0 0 1rem}
+.badge{display:inline-block;background:var(--color-accent);color:#000;padding:.25rem .55rem;border-radius:999px;font-size:.8rem}
+footer{border-top:1px solid #eee;padding:2rem 0;background:#fafafa;margin-top:2rem}
+.footer-grid{display:grid;gap:1rem;grid-template-columns:2fr 1fr 1fr}
+@media(max-width:800px){.footer-grid{grid-template-columns:1fr}}
+
+/* High contrast */
+body.hc{background:#000;color:#fff}
+body.hc a{color:#ffeb3b}
+body.hc .card{background:#111;border-color:#333}
+/* Teachers */
+.filter{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.t-card{border:1px solid #eee;border-radius:12px;padding:1rem}
+.t-photo{width:64px;height:64px;border-radius:8px;background:var(--color-muted);display:grid;place-items:center;font-weight:700}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:.6rem;border-bottom:1px solid #eee;text-align:left}
+.form{display:grid;gap:.75rem}
+input,select,textarea{font:inherit;padding:.6rem;border:1px solid #ccc;border-radius:8px}
+label{font-weight:600}
+.alert{padding:.6rem .8rem;border-radius:.5rem;background:#fff8d6;border:1px solid #ffe08a}
+
+
+/* ========= Responsive Galleries (Student Life, Sports, Arts) ========= */
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr); /* Tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr); /* Desktops */
+  }
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.photo-card figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* ========= CTA button enhancements ========= */
+.cta.primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.cta.primary:hover {
+  filter: brightness(0.95);
+  text-decoration: none;
+}
+
+.cta.primary:focus {
+  outline: 2px solid #003f86;
+  outline-offset: 2px;
+}
+
+
+/* ====== Parents Page: FAQ right table & separators ====== */
+/* Right-aligned standalone FAQ block */
+.faq-float-right{
+  width:44%;
+  float:right;
+  margin:2.5rem 0 2.5rem 2rem;
+  clear:right;
+}
+.faq-float-right table{ width:100%; border-collapse:collapse; }
+.faq-float-right thead tr{ background: var(--color-primary); color:#fff; }
+.faq-float-right th,
+.faq-float-right td{ padding:12px 14px; border-bottom:1px solid #eee; text-align:left; }
+.faq-float-right table{ background:#fff; border:1px solid #e6e6e6; box-shadow:0 2px 8px rgba(0,0,0,.06); border-radius:8px; overflow:hidden; }
+.faq-float-right h2{ text-align:center; margin:0 0 .75rem 0; }
+
+/* Labeled section separator (centered chip) */
+.section-separator{ margin:50px 0; text-align:center; }
+.section-separator .chip{
+  display:inline-block; padding:10px 20px; background:#f0f0f0; border-radius:6px; font-weight:700; color:#444;
+}
+
+/* Simple space-only section break */
+.section-spacer{ height:180px; }
+
+/* Responsive behavior: stack the FAQ on small screens */
+@media (max-width: 768px){
+  .faq-float-right{ width:100%; float:none; margin:1.5rem 0; }
+}
+
+/* === Merged Hero (uses hero_cr.jpeg; full viewport cover) === */
+/* === Hero background image (cover the viewport nicely) === */
+.hero{
+  min-height:100vh;                 /* fill the window height */
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:4rem 1rem;
+
+  /* Background image fills area with good aesthetics */
+  background-image:url("assets/hero_cr.jpeg");
+  background-repeat:no-repeat;
+  background-position:center center; /* keep focus centered */
+  background-size:cover;             /* fill window; may crop edges */
+  position:relative;
+  color:#fff;
+}
+
+/* Overlay for text legibility */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.55));
+  pointer-events:none;
+}
+
+/* Keep hero content above overlay */
+.hero>.container{position:relative;z-index:1;max-width:70ch}
+
+/* Buttons on image */
+.hero .cta{background:#0057B8;color:#fff;border:none}
+.hero .cta.secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(2px)}
+
+/* Small-screen tweaks */
+@media (max-width:600px){
+  .hero{padding:3rem 1rem}
+  .hero h1{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+}
+
+/* High-contrast compatibility if your JS toggles .hc on <body> */
+.hc .hero::before{background:none}
+.hc .hero{color:#111;background-color:#fff}
+.hc .hero .cta{background:#111;color:#fff}
+.hc .hero .cta.secondary{background:transparent;color:#111;border-color:#111}

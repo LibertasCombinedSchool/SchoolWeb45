@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leadership Gallery Slider – Auto Aspect Ratio</title>
+<style>
+  :root{
+    --bg:#0f172a; --text:#e5e7eb;
+    --btn-bg:rgba(255,255,255,0.15);
+    --btn-brd:rgba(255,255,255,0.25);
+    --dot:#6b7280; --dot-active:#06b6d4;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Arial, sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px;text-align:center}
+
+  /* Slider frame uses CSS aspect-ratio and adjusts per image */
+  .slideshow-container{
+    position:relative;
+    width:100%;
+    max-width:950px;
+    aspect-ratio: 16 / 9; /* default; JS will update to the active image */
+    margin:0 auto;
+    border-radius:12px;
+    overflow:hidden;
+    background:#000;
+    transition: aspect-ratio .25s ease;
+  }
+
+  .slide{position:absolute; inset:0; opacity:0; transition:opacity .6s ease-in-out; display:grid; place-items:center;}
+  .slide.active{opacity:1}
+  .slide img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; background:#000; display:block;}
+
+  .nav{position:absolute; top:50%; transform:translateY(-50%); border:1px solid var(--btn-brd); background:var(--btn-bg); color:#fff; width:42px; height:42px; border-radius:10px; display:grid; place-items:center; cursor:pointer}
+  .nav.prev{left:10px} .nav.next{right:10px}
+  .nav:hover{border-color:#2563eb}
+
+  .dots{position:absolute; bottom:12px; left:0; right:0; display:flex; gap:8px; justify-content:center}
+  .dot{width:12px; height:12px; border-radius:50%; background:#666; cursor:pointer; transition:background .3s}
+  .dot.active{background:var(--dot-active)}
+</style>
+</head>
+<body>
+  <div class="slideshow-container" id="slider">
+    <!-- Slides -->
+    <div class="slide active"><img src="assets/Leadership/leadership_1.jpeg" alt="image 1"></div>
+    <div class="slide"><img src="assets/Leadership/Leadership_2.jpeg" alt="image 2"></div>
+    <div class="slide"><img src="assets/Leadership/Leadership_3.jpeg" alt="image 3"></div>
+    <div class="slide"><img src="assets/Leadership/Leadership_4.jpeg" alt="image 4"></div>
+    <div class="slide"><img src="assets/Leadership/Leadership_5.jpeg" alt="image 5"></div>
+    <div class="slide"><img src="assets/Leadership/Leadership_6.jpeg" alt="image 6"></div>
+    <div class="slide"><img src="assets/Leadership/Leadership_7.jpeg" alt="image 7"></div>
+
+    <!-- Arrows -->
+    <div class="nav prev">&#10094;</div>
+    <div class="nav next">&#10095;</div>
+
+    <!-- Dots -->
+    <div class="dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+<script>
+  // Helpers
+  function setContainerAspectFor(img){
+    const slider = document.getElementById('slider');
+    if(!img || !img.naturalWidth || !img.naturalHeight) return;
+    const w = img.naturalWidth, h = img.naturalHeight;
+    slider.style.aspectRatio = `${w} / ${h}`; // CSS aspect-ratio reflects current image
+  }
+
+  let index = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const nextBtn = document.querySelector('.next');
+  const prevBtn = document.querySelector('.prev');
+  let timer;
+
+  // Ensure the first visible image sets the frame correctly once loaded
+  const firstImg = slides[0].querySelector('img');
+  if(firstImg.complete){ setContainerAspectFor(firstImg); }
+  else { firstImg.addEventListener('load', ()=> setContainerAspectFor(firstImg)); }
+
+  function show(i){
+    index = (i + slides.length) % slides.length;
+    slides.forEach((s,k)=>s.classList.toggle('active', k===index));
+    dots.forEach((d,k)=>d.classList.toggle('active', k===index));
+
+    const img = slides[index].querySelector('img');
+    if(img.complete){ setContainerAspectFor(img); }
+    else { img.addEventListener('load', ()=> setContainerAspectFor(img), { once:true }); }
+  }
+
+  function next(){ show(index+1); }
+  function prev(){ show(index-1); }
+  function start(){ timer = setInterval(next, 3000); }
+  function stop(){ clearInterval(timer); }
+
+  nextBtn.onclick = ()=>{ stop(); next(); start(); };
+  prevBtn.onclick = ()=>{ stop(); prev(); start(); };
+  dots.forEach((dot,i)=> dot.onclick = ()=>{ stop(); show(i); start(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='ArrowRight'){stop(); next(); start();} if(e.key==='ArrowLeft'){stop(); prev(); start();} });
+  start();
+</script>
+</body>
+</html>

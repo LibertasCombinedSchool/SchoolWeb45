@@ -1,0 +1,85 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Libertas Combined School — Home</title><meta name='description' content='Official Libertas Combined School website.'/><link rel='icon' href='favicon.ico'><link rel='apple-touch-icon' href='assets/icon-180.png'><link rel='manifest' href='site.webmanifest'><meta property='og:title' content='Libertas Combined School — Home'/><meta property='og:description' content='Official Libertas Combined School website.'/><meta property='og:image' content='assets/icon-512.png'/><meta name='theme-color' content='#0057B8'/><link rel='stylesheet' href='styles.css'/></head><a class="skip-link" href="#main">Skip to content</a>
+<header id="site-header">
+  <div class="container topbar">
+    <div class="brand">
+      <img src="assets/logo.png" alt="School logo">
+      <div>
+        <div>Libertas Combined School</div>
+        <small class="badge">Excellence • Integrity • Opportunity</small>
+      </div>
+    </div>
+    <button class="mobile-toggle" aria-expanded="false" aria-controls="primary-nav">☰ Menu</button>
+    <nav id="primary-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="student-life.html">Student Life</a></li>
+        <li><a href="parents.html">Parents</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="teachers.html">Teachers</a></li>
+        <li><button class="cta secondary" data-action="hc-toggle" aria-pressed="false" type="button">High contrast</button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<button id="header-tab" class="header-tab" aria-controls="site-header" aria-expanded="true" type="button" title="Toggle header">▲</button>
+<main id='main'>
+<space></space>
+<section class='hero'>
+  <div class='container'>
+    <h1>Welcome to Libertas Combined School</h1>
+    <p>Where learners discover their strengths and build a future with purpose.</p>
+    <p>
+      <a class='cta' href='admissions.html'>Apply Now</a>
+      <a class='cta secondary' href='academics.html'>Explore Academics</a>
+    </p>
+  </div>
+</section>
+<section class='section container'>
+  <h2>Quick Links</h2>
+  <div class='grid cols-3'>
+    <a class='card' href='admissions.html'><strong>Admissions</strong><br>How to apply, key dates, requirements.</a>
+    <a class='card' href='parents.html'><strong>Parents</strong><br>Policies, forms, newsletters.</a>
+    <a class='card' href='student-life.html'><strong>Student Life</strong><br>Clubs, sports, arts and more.</a>
+  </div>
+</section>
+<section class='section container'>
+  <h2>News & Announcements</h2>
+  <div class='grid cols-3'>
+    <article class='card'><h3>Open Day — March</h3><p>Join our campus tour and info session. RSVP required.</p></article>
+    <article class='card'><h3>Matric Results</h3><p>Congratulations to our latest cohort for outstanding results!</p></article>
+    <article class='card'><h3>New STEM Lab</h3><p>Our refurbished lab opens this term with robotics kits.</p></article>
+  </div>
+</section>
+<section class='section container' id='newsletter'>
+  <h2>Newsletter</h2>
+  <form class='form card' data-mock>
+    <label>Email<input required type='email' placeholder='you@example.com'></label>
+    <label><input type='checkbox' required> I agree to receive school updates.</label>
+    <button class='cta'>Subscribe</button>
+    <div class='status' aria-live='polite'></div>
+  </form>
+</section>
+</main><footer id="contact">
+  <div class="container footer-grid">
+    <section>
+      <h3>Libertas Combined School</h3>
+      <p>Waaiplas P.O. Box 706 Senekal, Free State<br>Tel: +27 (0)73 915 9388</p>
+      <p>Email: <a href="mailto:info@libertas.school">info@libertas.school</a></p>
+    </section>
+    <section>
+      <h4>Office Hours</h4>
+      <p>Mon–Fri: 07:30–14:30</p>
+      <p>Term Calendar available on the Parents page.</p>
+    </section>
+    <section>
+      <h4>Follow</h4>
+      <p><a href="#">Facebook</a> · <a href="#">Instagram</a> · <a href="#">X</a></p>
+    </section>
+  </div>
+  <div class="container" style="margin-top:1rem;color:#666">© <span id="year"></span> Libertas Combined School</div>
+</footer>
+<script src="js/main.js"></script>
+<script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+</html>

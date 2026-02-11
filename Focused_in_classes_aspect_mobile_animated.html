@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>In‑Class Activities – Mobile Responsive (Animated Height)</title>
+<style>
+  :root{ --bg:#0f172a; --text:#e5e7eb; --btn-bg:rgba(255,255,255,0.15); --btn-brd:rgba(255,255,255,0.25); --dot:#6b7280; --dot-active:#06b6d4; }
+  body{ margin:0; background:var(--bg); color:var(--text); font-family:Arial, sans-serif; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:16px; }
+
+  .slideshow-container{ position:relative; margin:0 auto; border-radius:12px; overflow:hidden; background:#000; }
+  /* Animate frame size changes smoothly */
+  .slideshow-container{ transition: height .35s ease, width .35s ease; }
+
+  .slide{ position:absolute; inset:0; opacity:0; transition:opacity .6s ease-in-out; display:grid; place-items:center; }
+  .slide.active{ opacity:1; }
+  .slide img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; background:#000; display:block; }
+
+  .nav{ position:absolute; top:50%; transform:translateY(-50%); border:1px solid var(--btn-brd); background:var(--btn-bg); color:#fff; width:42px; height:42px; border-radius:10px; display:grid; place-items:center; cursor:pointer; }
+  .nav.prev{ left:10px; } .nav.next{ right:10px; }
+  .nav:hover{ border-color:#2563eb; }
+
+  .dots{ position:absolute; bottom:12px; left:0; right:0; display:flex; gap:8px; justify-content:center; }
+  .dot{ width:12px; height:12px; border-radius:50%; background:#666; cursor:pointer; transition:background .3s; }
+  .dot.active{ background:var(--dot-active); }
+</style>
+</head>
+<body>
+<div class="slideshow-container" id="slider">
+  <div class="slide active"><img src="assets/Inclass_activities/class_acti1.jpeg" alt="In-class 1"></div>
+  <div class="slide"><img src="assets/Inclass_activities/class_acti2.jpeg" alt="In-class 2"></div>
+  <div class="slide"><img src="assets/Inclass_activities/class_acti3.jpeg" alt="In-class 3"></div>
+
+  <div class="nav prev">&#10094;</div>
+  <div class="nav next">&#10095;</div>
+
+  <div class="dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<script>
+  // Compute a responsive target size that fits the image and viewport, then animate container to it
+  function targetSizeFor(img){
+    const vw = Math.min(window.innerWidth, document.documentElement.clientWidth);
+    const vh = Math.min(window.innerHeight, document.documentElement.clientHeight);
+    const maxW = Math.min(950, vw - 32);               // keep some horizontal padding
+    const maxH = (vw <= 768) ? Math.round(vh * 0.85)    // phone / small tablet
+                             : Math.round(vh * 0.72);   // larger screens
+    const ratio = img.naturalWidth / img.naturalHeight; // w/h
+    // ideal width constrained by height cap
+    let width = Math.min(maxW, Math.round(maxH * ratio));
+    let height = Math.round(width / ratio);
+    return { width, height };
+  }
+
+  function resizeToImage(img){
+    const slider = document.getElementById('slider');
+    if(!img || !img.naturalWidth || !img.naturalHeight) return;
+    const { width, height } = targetSizeFor(img);
+    // Setting numeric width/height lets CSS transition animate the frame smoothly
+    slider.style.width = width + 'px';
+    slider.style.height = height + 'px';
+  }
+
+  let index = 0;
+  const slider = document.getElementById('slider');
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const nextBtn = document.querySelector('.next');
+  const prevBtn = document.querySelector('.prev');
+  let timer;
+
+  // Initialize size from the first image
+  const firstImg = slides[0].querySelector('img');
+  function initFirst(){ resizeToImage(firstImg); }
+  if(firstImg.complete) initFirst(); else firstImg.addEventListener('load', initFirst, { once:true });
+
+  // Debounced resize for viewport changes
+  let resizeTimer; 
+  window.addEventListener('resize', ()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(()=>{
+      const img = slides[index].querySelector('img');
+      resizeToImage(img);
+    }, 80);
+  });
+
+  function show(i){
+    index = (i + slides.length) % slides.length;
+    slides.forEach((s,k)=>s.classList.toggle('active', k===index));
+    dots.forEach((d,k)=>d.classList.toggle('active', k===index));
+    const img = slides[index].querySelector('img');
+    if(img.complete){ resizeToImage(img); }
+    else { img.addEventListener('load', ()=> resizeToImage(img), { once:true }); }
+  }
+
+  function next(){ show(index+1); }
+  function prev(){ show(index-1); }
+  function start(){ timer = setInterval(next, 3000); }
+  function stop(){ clearInterval(timer); }
+
+  nextBtn.onclick = ()=>{ stop(); next(); start(); };
+  prevBtn.onclick = ()=>{ stop(); prev(); start(); };
+  dots.forEach((dot,i)=> dot.onclick = ()=>{ stop(); show(i); start(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='ArrowRight'){stop(); next(); start();} if(e.key==='ArrowLeft'){stop(); prev(); start();} });
+
+  start();
+</script>
+</body>
+</html>
