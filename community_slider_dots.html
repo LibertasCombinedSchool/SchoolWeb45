@@ -1,40 +1,51 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Community Engagement Slider</title>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Community Engagement Slider - Fullscreen Version</title>
 <style>
 body{margin:0;background:#0f172a;color:#e5e7eb;font-family:Arial, sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;padding:20px;text-align:center}
-.slideshow-container{position:relative;width:90%;max-width:650px;height:360px;overflow:hidden;margin:0 auto;border-radius:12px}
+.slideshow-container{position:relative;width:90%;max-width:650px;height:360px;overflow:hidden;margin:0 auto;border-radius:12px;background:#000}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s}
-.slide img{width:100%;height:100%;object-fit:cover}
+.slide img{width:100%;height:100%;object-fit:contain;background:#000}
 .slide.active{opacity:1}
 .nav{position:absolute;top:50%;transform:translateY(-50%);border:1px solid rgba(148,163,184,.35);background:rgba(11,18,34,.65);color:#fff;width:42px;height:42px;border-radius:10px;display:grid;place-items:center;cursor:pointer}
 .nav.prev{left:10px}
 .nav.next{right:10px}
 .nav:hover{border-color:#2563eb}
-/* dots */
 .dots{position:absolute;bottom:12px;left:0;right:0;display:flex;gap:8px;justify-content:center}
 .dot{width:12px;height:12px;border-radius:50%;background:#666;cursor:pointer;transition:background .3s}
 .dot.active{background:#06b6d4}
+.fullscreen-btn{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.55);color:#fff;border:1px solid rgba(255,255,255,.35);padding:6px 12px;font-size:14px;border-radius:8px;cursor:pointer;backdrop-filter:blur(3px);transition:0.3s}
+.fullscreen-btn:hover{border-color:#06b6d4;background:rgba(0,0,0,0.7)}
 </style>
 </head>
 <body>
-<div class="slideshow-container">
-  <div class="slide active"><img src="assets/community_gallery/commnity_activity_1.jpeg"></div>
-  <div class="slide"><img src="assets/community_gallery/community_activity_2.jpeg"></div>
-  <div class="slide"><img src="assets/community_gallery/community_activity_3.jpeg"></div>
-  <div class="slide"><img src="assets/community_gallery/act_5.jpeg"></div>
-  <button class="nav prev">&#10094;</button>
-  <button class="nav next">&#10095;</button>
-  <div class="dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+<div class='slideshow-container' id='sliderBox'>
+  <div class='slide active'><img src='assets/community_gallery/commnity_activity_1.jpeg'></div>
+  <div class='slide'><img src='assets/community_gallery/community_activity_2.jpeg'></div>
+  <div class='slide'><img src='assets/community_gallery/community_activity_3.jpeg'></div>
+  <div class='slide'><img src='assets/community_gallery/act_5.jpeg'></div>
+  <div class='slide'><img src='assets/community_gallery/act_6.jpeg'></div>
+  <div class='slide'><img src='assets/community_gallery/act_7.jpeg'></div>
+  <div class='slide'><img src='assets/community_gallery/act_8.jpeg'></div>
+  <div class='slide'><img src='assets/community_gallery/actc_5.jpeg'></div>
+
+  <button class='nav prev'>❮</button>
+  <button class='nav next'>❯</button>
+
+  <div class='dots'>
+    <div class='dot active'></div>
+    <div class='dot'></div>
+    <div class='dot'></div>
+    <div class='dot'></div>
   </div>
+
+  <button class='fullscreen-btn' id='fsToggle'>⛶ Fullscreen</button>
 </div>
+
 <script>
 let idx=0;
 const slides=document.querySelectorAll('.slide');
@@ -42,17 +53,18 @@ const dots=document.querySelectorAll('.dot');
 const nextBtn=document.querySelector('.next');
 const prevBtn=document.querySelector('.prev');
 let timer;
-function show(i){
-  idx=(i+slides.length)%slides.length;
-  slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
-  dots.forEach((d,k)=>d.classList.toggle('active',k===idx));
-}
-function next(){show(idx+1);} function prev(){show(idx-1);}
-function start(){timer=setInterval(next,3000);} function stop(){clearInterval(timer);}
-dots.forEach((dot,i)=>dot.addEventListener('click',()=>{stop();show(i);start();}));
-nextBtn.onclick=()=>{stop();next();start();};
-prevBtn.onclick=()=>{stop();prev();start();};
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){stop();next();start();} if(e.key==='ArrowLeft'){stop();prev();start();}});
+function show(i){idx=(i+slides.length)%slides.length;slides.forEach((s,k)=>s.classList.toggle('active',k===idx));dots.forEach((d,k)=>d.classList.toggle('active',k===idx));}
+function next(){show(idx+1);}function prev(){show(idx-1);}function start(){timer=setInterval(next,3000);}function stop(){clearInterval(timer);}dots.forEach((dot,i)=>dot.addEventListener('click',()=>{stop();show(i);start();}));nextBtn.onclick=()=>{stop();next();start();};prevBtn.onclick=()=>{stop();prev();start();};document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){stop();next();start();}if(e.key==='ArrowLeft'){stop();prev();start();}});
+
+// Fullscreen Toggle
+const fsBtn=document.getElementById('fsToggle');
+const slider=document.getElementById('sliderBox');
+fsBtn.addEventListener('click',()=>{
+  if(!document.fullscreenElement){slider.requestFullscreen();} else {document.exitFullscreen();}
+});
+document.addEventListener('fullscreenchange',()=>{
+  fsBtn.textContent = document.fullscreenElement ? '⤢ Exit Fullscreen' : '⛶ Fullscreen';
+});
 start();
 </script>
 </body>
